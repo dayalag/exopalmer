@@ -6,7 +6,9 @@ output: html_document
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = FALSE)
+knitr::opts_chunk$set(echo = FALSE, 
+                      message = FALSE, 
+                      cache = TRUE) ##  pour pas repeter les analyses
 
 ```
 
@@ -16,9 +18,7 @@ Now the libraries
 
 library(palmerpenguins)
 library(tidyverse)
-library(ggplot2)
-
-
+library (ggplot2)
 
 ```
 
@@ -26,8 +26,8 @@ Now we are going to create a new table with only 5 lines
 
 ```{r }
 penguins %>%
-  head(10) %>%
-  knitr::kable(format = "html", caption = "A kable table")
+  slice(1:10) %>%
+  knitr::kable()
   
 ```
 
@@ -36,11 +36,25 @@ Next, we are going to estimate the different parameters
 
 ```{r}
 penguins %>%
-  count(species) %>%
-  knitr::kable(format = "html", caption = "A kable table")
+  group_by(species) %>%
+  summarize(across(where(is.numeric), mean, na.rm=TRUE))
   
 
+```
 
+
+```{r}
+
+penguins %>%
+  ggplot() +
+  aes(x = body_mass_g) +
+  geom_histogram(aes(fill=species),
+                   alpha = .5,
+                   position = "identity")+
+    labs(x="Body Mass (gr)",
+         y="Frequency",
+         title= "Penguin body mass")
+                    
 
 ```
 
