@@ -1,0 +1,46 @@
+---
+title: "exopalmer"
+author: "Diego Ayala"
+date: "11/2/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+
+```
+
+Now the libraries 
+
+```{r echo=FALSE}
+
+library(palmerpenguins)
+library(tidyverse)
+library(ggplot2)
+
+
+
+```
+
+Now we are going to create a new table with only 5 lines
+
+```{r }
+penguins %>%
+  head(10) %>%
+  knitr::kable(format = "html", caption = "A kable table")
+  
+```
+
+
+Next, we are going to estimate the different parameters
+
+```{r}
+penguins %>%
+  count(species) %>%
+  knitr::kable(format = "html", caption = "A kable table")
+  
+
+
+
+```
+
